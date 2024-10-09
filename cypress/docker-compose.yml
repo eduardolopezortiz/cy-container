@@ -1,0 +1,41 @@
+version: '3'
+services:
+  cypress:
+    build: .
+    container_name: cypress-container
+    volumes:
+      - ./cypress:/e2e  # Montar la carpeta local "cypress" en el contenedor
+    environment:
+      - MYSQL_HOST=mysql
+      - SQLSERVER_HOST=sqlserver
+    depends_on:
+      - mysql
+      - sqlserver
+
+  mysql:
+    image: mysql:latest
+    container_name: mysql-container
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: test_db
+      MYSQL_USER: user
+      MYSQL_PASSWORD: userpassword
+    volumes:
+      - mysql-data:/var/lib/mysql
+    ports:
+      - "3306:3306"
+
+  sqlserver:
+    image: mcr.microsoft.com/mssql/server:latest
+    container_name: sqlserver-container
+    environment:
+      ACCEPT_EULA: "Y"
+      SA_PASSWORD: "StrongPassword123"
+    ports:
+      - "1433:1433"
+    volumes:
+      - sqlserver-data:/var/opt/mssql
+
+volumes:
+  mysql-data:
+  sqlserver-data:

@@ -1,0 +1,17 @@
+# Ignorar archivos y directorios comunes
+node_modules/
+bower_components/
+.tmp/
+.sass-cache/
+dist/
+build/
+
+# Ignorar archivos de configuración
+.DS_Store
+npm-debug.log*
+yarn-error.log* 
+
+
+# Ignorar archivos de caché de editor
+.idea
+.vscode
